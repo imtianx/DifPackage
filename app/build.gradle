@@ -1,0 +1,107 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        applicationId rootProject.ext.applicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+    //sign key
+    signingConfigs{
+        one {
+            storeFile file(properties.getProperty("keystroe_storeFile_1"))
+            storePassword properties.getProperty("keystroe_storePassword_1")
+            keyAlias properties.getProperty("keystroe_keyAlias_1")
+            keyPassword properties.getProperty("keystroe_keyPassword_1")
+        }
+        two {
+            storeFile file(properties.getProperty("keystroe_storeFile_2"))
+            storePassword properties.getProperty("keystroe_storePassword_2")
+            keyAlias properties.getProperty("keystroe_keyAlias_2")
+            keyPassword properties.getProperty("keystroe_keyPassword_2")
+        }
+        three {
+            storeFile file(properties.getProperty("keystroe_storeFile_3"))
+            storePassword properties.getProperty("keystroe_storePassword_3")
+            keyAlias properties.getProperty("keystroe_keyAlias_3")
+            keyPassword properties.getProperty("keystroe_keyPassword_3")
+        }
+
+        release{
+            storeFile file(properties.getProperty("keystroe_storeFile_1"))
+            storePassword properties.getProperty("keystroe_storePassword_1")
+            keyAlias properties.getProperty("keystroe_keyAlias_1")
+            keyPassword properties.getProperty("keystroe_keyPassword_1")
+        }
+        debug{
+
+        }
+    }
+
+    // channel
+    productFlavors{
+        one{
+            applicationId "cn.imtianx.one"
+            versionNameSuffix "-one"
+            manifestPlaceholders = [UMENG_APP_KEY_VALUE:"111111",UMENG_CHANNEL_VALUE:"one"]
+            signingConfig signingConfigs.one
+        }
+        two{
+            applicationId "cn.imtianx.two"
+            versionNameSuffix "-two"
+            manifestPlaceholders = [UMENG_APP_KEY_VALUE:"222222",UMENG_CHANNEL_VALUE:"two"]
+            signingConfig signingConfigs.two
+        }
+        three{
+            applicationId "cn.imtianx.three"
+            versionNameSuffix "-three"
+            manifestPlaceholders = [UMENG_APP_KEY_VALUE:"333333",UMENG_CHANNEL_VALUE:"three"]
+            signingConfig signingConfigs.three
+        }
+    }
+
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            zipAlignEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+//        productFlavors.one.signingConfig signingConfigs.one
+//        productFlavors.two.signingConfig signingConfigs.two
+//        productFlavors.three.signingConfig signingConfigs.three
+    }
+
+//    sourceSets{
+//        one.res.srcDirs = ['src/one']
+//        one.res.srcDirs = ['src/two']
+//        one.res.srcDirs = ['src/three']
+//    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "com.android.support:appcompat-v7:${rootProject.ext.supportVersion}"
+    testCompile 'junit:junit:4.12'
+}

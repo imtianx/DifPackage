@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">two</string>
+    <string name="text_dec">来自two下的资源文件文件</string>
+
+</resources>

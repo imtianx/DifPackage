@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">one</string>
+    <string name="text_dec">来自one下的资源文件文件</string>
+</resources>
