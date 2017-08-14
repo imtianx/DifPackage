@@ -89,12 +89,6 @@ android {
 //        productFlavors.two.signingConfig signingConfigs.two
 //        productFlavors.three.signingConfig signingConfigs.three
     }
-
-    sourceSets{
-       one.res.srcDirs = ['src/one']
-       two.res.srcDirs = ['src/two']
-       three.res.srcDirs = ['src/three']
-    }
 }
 
 dependencies {
